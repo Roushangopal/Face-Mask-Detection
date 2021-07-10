@@ -107,7 +107,7 @@ while True:
 			label = "Mask"
 		else:
 			label = "No Mask"
-			cv2.imwrite(f"project\outputImage\img{count}.jpg", frame)
+			cv2.imwrite(f"faceRecognition\outputImage\img{count}.jpg", frame)
 			count += 1
 		color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
 
