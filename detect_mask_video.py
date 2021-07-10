@@ -19,7 +19,7 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
 	# pass the blob through the network and obtain the face detections
 	faceNet.setInput(blob)
 	detections = faceNet.forward()
-	print(detections.shape)
+	# print(detections.shape)
 
 	# initialize our list of faces, their corresponding locations,
 	# and the list of predictions from our face mask network
@@ -82,13 +82,13 @@ maskNet = load_model("mask_detector.model")
 # initialize the video stream
 print("[INFO] starting video stream...")
 vs = VideoStream(src=0).start()
-
+count = 0
 # loop over the frames from the video stream
 while True:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 400 pixels
 	frame = vs.read()
-	frame = imutils.resize(frame, width=400)
+	frame = imutils.resize(frame, width=800)
 
 	# detect faces in the frame and determine if they are wearing a
 	# face mask or not
@@ -103,7 +103,12 @@ while True:
 
 		# determine the class label and color we'll use to draw
 		# the bounding box and text
-		label = "Mask" if mask > withoutMask else "No Mask"
+		if mask > withoutMask:
+			label = "Mask"
+		else:
+			label = "No Mask"
+			cv2.imwrite(f"project\img{count}.jpg", frame)
+			count += 1
 		color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
 
 		# include the probability in the label
@@ -120,9 +125,9 @@ while True:
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key was pressed, break from the loop
-	if key == ord("q"):
-		break
+	# if key == ord("q"):
+	# 	break
 
 # do a bit of cleanup
-cv2.destroyAllWindows()
 vs.stop()
+cv2.destroyAllWindows()
