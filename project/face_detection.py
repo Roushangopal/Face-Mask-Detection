@@ -110,7 +110,7 @@ def existingImageMatch(encodListKnown):
         imagesWithoutMask.append(curImgWithoutMask)
     print("[INFO] Reading Completed!")
     print("[INFO] Finding Matches")
-    for (img, img1) in zip (imagesWithoutMask, myListWithoutMask):
+    for (img, img1) in zip(imagesWithoutMask, myListWithoutMask):
         # reduce the size of image for speed
         imgSmall = cv2.resize(img, (0, 0), None, 0.25, 0.25)
         # convert into RGB
@@ -129,11 +129,7 @@ def existingImageMatch(encodListKnown):
             if matches[matchIndex]:
                 name = names[matchIndex].upper()
                 markWithoutMask(name)
-                os.remove(f'{pathOfWithoutMask}/{img1}')
-            # else:
-            #     name = "Unknown"
-            #     markWithoutMask(name)
-            #     os.rename(f"{pathOfWithoutMask}/{img1}", f"{pathOfWithoutMask}/unknown{countUnknown}")
+        os.remove(f'{pathOfWithoutMask}/{img1}')
 
     print("[INFO] Matched!")
 
