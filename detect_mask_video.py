@@ -8,6 +8,7 @@ import imutils
 import time
 import cv2
 import os
+import sys
 
 def detect_and_predict_mask(frame, faceNet, maskNet):
 	# grab the dimensions of the frame and then construct a blob
@@ -125,9 +126,10 @@ while True:
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key was pressed, break from the loop
-	# if key == ord("q"):
-	# 	break
+	if key == ord("q"):
+		break
 
 # do a bit of cleanup
 vs.stop()
+vs.stream.release()
 cv2.destroyAllWindows()
